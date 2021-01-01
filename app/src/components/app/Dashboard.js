@@ -11,7 +11,6 @@ const Dashboard = () => {
             id
             Title
             content
-            date
             author {
               username
             }

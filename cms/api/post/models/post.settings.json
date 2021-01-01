@@ -17,13 +17,10 @@
     "content": {
       "type": "richtext"
     },
-    "date": {
-      "type": "datetime"
-    },
     "author": {
-      "via": "posts",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "posts"
     },
     "images": {
       "collection": "file",
@@ -35,9 +32,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "Slug": {
-      "type": "uid"
     },
     "category": {
       "model": "category"
