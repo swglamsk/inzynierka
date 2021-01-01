@@ -1,8 +1,7 @@
 import React from "react"
-import {Layout} from "../layout"
-import {useStaticQuery, graphql, Link} from "gatsby"
-
-
+import { Layout } from "../layout"
+import { useStaticQuery, graphql, Link } from "gatsby"
+import ReactMarkdown from "react-markdown"
 const Dashboard = () => {
   const data = useStaticQuery(graphql`
     {
@@ -22,23 +21,20 @@ const Dashboard = () => {
     }
   `)
 
-  return(
+  return (
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       <ul>
-        {
-          data.allStrapiPost.edges.map(post => (
-            <li key={post.node.id}>
-              <h2>
-                <Link to={`/app/${post.node.id}`}>{post.node.Title}</Link>
-
-              </h2>
-              <h3>Author: {post.node.author.username} </h3>
-              <p>{post.node.content}</p>
-            </li>
-          ))
-        }
+        {data.allStrapiPost.edges.map(post => (
+          <li key={post.node.id}>
+            <h2>
+              <Link to={`/app/${post.node.id}`}>{post.node.Title}</Link>
+            </h2>
+            <h3>Author: {post.node.author.username} </h3>
+            <ReactMarkdown source={post.node.content} />
+          </li>
+        ))}
       </ul>
-    </div>)
+    </div>
+  )
 }
 export default Dashboard
-

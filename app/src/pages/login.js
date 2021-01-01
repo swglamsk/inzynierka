@@ -1,8 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import Login from "../components/Login"
-import {Link} from 'gatsby'
- 
+import { Link } from "gatsby"
+
 const LoginPage = ({ location }) => {
   const { state, routeState } = location
   const redirect = !routeState

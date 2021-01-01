@@ -1,12 +1,18 @@
-import React, { useContext, useReducer, createContext } from "react"
-
+import React, { useContext, useReducer, createContext, useState, useEffect } from "react"
 import axios from "axios"
+//import 'localstorage-polyfill'
 const apiURL = process.env.GATSBY_API_URL
 
+const AuthContext = createContext()
+
+const AuthProvider = ({ children }) => {
+  const user =  localStorage.getItem('user') !== undefined && localStorage.getItem('user')
+
+
 const DEFAULT_STATE = {
-  jwt: null,
-  user: {},
-  loggedIn: false,
+  jwt:  user ? JSON.parse(user).jwt : null,
+  user: user ? JSON.parse(user).user : {},
+  loggedIn: user  ? true : false
 }
 
 const reducer = (state, action) => {
@@ -21,9 +27,7 @@ const reducer = (state, action) => {
   }
 }
 
-const AuthContext = createContext()
 
-const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={useReducer(reducer, DEFAULT_STATE)}>
       {children}
@@ -48,7 +52,7 @@ const useAuth = () => {
         )
         dispatcher({ type: "LOGIN", payload })
         resolve(payload)
-        sessionStorage.setItem('user', payload.jwt)
+        localStorage.setItem("user", JSON.stringify(payload))
       } catch (e) {
         console.log(e)
         reject(e)
@@ -56,6 +60,7 @@ const useAuth = () => {
     })
   const logout = () => {
     dispatcher({ type: "LOGOUT" })
+    localStorage.removeItem("user")
   }
 
   return { state, isAuthenticated, login, logout }

@@ -60,8 +60,31 @@
       "configurable": false
     },
     "posts": {
-      "via": "author",
-      "collection": "post"
+      "collection": "post",
+      "via": "author"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "avatar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "department": {
+      "type": "enumeration",
+      "enum": [
+        "SeniorDeveloper",
+        "Developer",
+        "JuniorDeveloper",
+        "Intern"
+      ]
     }
   }
 }

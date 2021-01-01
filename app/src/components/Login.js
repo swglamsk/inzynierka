@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import useAuth from "../hooks/useAuth"
-import {navigate} from 'gatsby'
+import { navigate } from "gatsby"
 const Login = ({ redirect }) => {
   const { state, login } = useAuth()
   const [identifier, setIdentifier] = useState("")
@@ -86,9 +86,6 @@ const Login = ({ redirect }) => {
           {error}
         </p>
       )}
-      <p className="text-center text-gray-500 text-xs">
-        &copy;2020 Gatsby Authentication. All rights reserved.
-      </p>
     </div>
   )
 }

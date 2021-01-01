@@ -1,12 +1,12 @@
 // import ...
 import React from "react"
 import { navigate } from "gatsby"
-import { useAuth} from "../hooks/useAuth"
+import { useAuth } from "../hooks/useAuth"
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-    const [state, isLoggedIn] = useAuth()
-  if (!isLoggedIn() && location.pathname !== `/app/login`) {
-    navigate("/app/login")
+  const [state, isLoggedIn] = useAuth()
+  if (!isLoggedIn() && location.pathname !== `/login`) {
+    navigate("/login")
     return null
   }
 
