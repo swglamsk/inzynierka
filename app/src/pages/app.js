@@ -6,7 +6,7 @@ import Account from "../components/app/Account"
 import Dashboard from "../components/app/Dashboard"
 import Nav from "../components/app/Nav"
 import useAuth from "../hooks/useAuth"
-
+import Panel from "../components/app/Panel"
 const App = ({ location }) => {
   const { state, isAuthenticated } = useAuth()
   const redirect = location.pathname.split("/").pop()
@@ -21,6 +21,7 @@ const App = ({ location }) => {
       <Router basepath="/app">
         <Account path="/account" />
         <Dashboard path="/dashboard" />
+        <Panel path="/panel"/>
       </Router>
     </Layout>
   )

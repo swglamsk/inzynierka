@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "categories",
   "info": {
-    "name": "Category"
+    "name": "Category",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -12,10 +13,6 @@
   "attributes": {
     "Category_name": {
       "type": "string"
-    },
-    "category_id": {
-      "type": "uid",
-      "targetField": "Category_name"
     }
   }
 }

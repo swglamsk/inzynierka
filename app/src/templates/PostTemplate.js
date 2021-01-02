@@ -2,7 +2,9 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import ReactMarkdown from "react-markdown"
+import "../styles/global.css"
 
+const URL = process.env.GATSBY_API_URL
 const PostTemplate = ({ data }) => (
   <Layout>
     <h1>{data.strapiPost.Title}</h1>
@@ -13,7 +15,10 @@ const PostTemplate = ({ data }) => (
         {data.strapiPost.author.username}
       </Link>
     </p>
-    <ReactMarkdown source={data.strapiPost.content} />
+    <ReactMarkdown source={data.strapiPost.content} 
+     transformImageUri={uri => uri.startsWith('http') ? uri : `${URL}${uri}`}
+           className="articleContent"
+      escapeHtml={false}/>
   </Layout>
 )
 

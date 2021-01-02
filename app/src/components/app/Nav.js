@@ -10,6 +10,9 @@ const Nav = () => {
       <li className="mx-2 px-2">
         <Link to="/app/account">Account</Link>
       </li>
+      <li className="mx-2 px-2">
+        <Link to="/app/panel">Add post</Link>
+      </li>
     </ul>
   )
 }
