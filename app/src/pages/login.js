@@ -13,11 +13,13 @@ const LoginPage = ({ location }) => {
 
   return (
     <Layout>
-      <h1>Login</h1>
+      <h1 style={{ display: "flex", justifyContent: "center" }}>Login</h1>
       <div>
         <Login redirect={redirect} />
       </div>
-      <Link to="/">Home</Link>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Link to="/">Home</Link>
+      </div>
     </Layout>
   )
 }

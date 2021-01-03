@@ -31,15 +31,22 @@ const Login = ({ redirect }) => {
   }
 
   return (
-    <div className="w-full max-w-xs">
+    <div
+      className="w-full max-w-xs"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
-        <div className="mb-4">
+        <div
+          className="mb-4"
+          style={{ marginTop: "10px", marginRight: "10px" }}
+        >
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="username"
+            style={{ marginRight: "10px" }}
           >
             Username
           </label>
@@ -54,10 +61,14 @@ const Login = ({ redirect }) => {
             placeholder="Username"
           />
         </div>
-        <div className="mb-6">
+        <div
+          className="mb-6"
+          style={{ marginTop: "10px", marginRight: "10px" }}
+        >
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
+            style={{ marginRight: "10px" }}
           >
             Password
           </label>
@@ -72,7 +83,10 @@ const Login = ({ redirect }) => {
             placeholder="******************"
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div
+          className="flex items-center justify-between"
+          style={{ marginTop: "10px", marginRight: "10px" }}
+        >
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

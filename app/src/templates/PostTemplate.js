@@ -15,10 +15,12 @@ const PostTemplate = ({ data }) => (
         {data.strapiPost.author.username}
       </Link>
     </p>
-    <ReactMarkdown source={data.strapiPost.content} 
-     transformImageUri={uri => uri.startsWith('http') ? uri : `${URL}${uri}`}
-           className="articleContent"
-      escapeHtml={false}/>
+    <ReactMarkdown
+      source={data.strapiPost.content}
+      transformImageUri={uri => (uri.startsWith("http") ? uri : `${URL}${uri}`)}
+      className="articleContent"
+      escapeHtml={false}
+    />
   </Layout>
 )
 

@@ -29,39 +29,53 @@ export const CreatePost = () => {
     value: element.node.id,
   }))
   const handleSubmit = async () => {
-    await axios.post(`${apiURL}/posts`, {
-      Title:title,
-      author:user,
-      category:category.toString(),
-      content:content
-    }).then(response => {
-      if(!!response){
-        console.log(response)
-      }
-    }).catch((error) => {
-      console.log(error)
-    })
+    await axios
+      .post(`${apiURL}/posts`, {
+        Title: title,
+        author: user,
+        category: category.toString(),
+        content: content,
+      })
+      .then(response => {
+        if (!!response) {
+          console.log(response)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   return (
     <Form onSubmit={() => handleSubmit()}>
-      <Form.Field required>
-        <label>Title</label>
-        <input
-          placeholder="Title"
-          onChange={data => setTitle(data.target.value)}
-        />
-      </Form.Field>
-        <Dropdown
-          placeholder="select category"
-          fluid
-          selection
-          options={categories}
-          onChange={(e, {value}) => setCategory({value}.value.toString().split("_")[1])}
-        />
-
-      <MDEditor value={content} onChange={setContent} />
-      <Button type="submit">Add post</Button>
+      <div style={{ marginTop: "10px" }}>
+        <Form.Field required>
+          <label>Title:</label>
+          <input
+            placeholder="Title"
+            onChange={data => setTitle(data.target.value)}
+          />
+        </Form.Field>
+        <Form.Field required>
+          <label>Category:</label>
+          <Dropdown
+            placeholder="select category"
+            fluid
+            selection
+            options={categories}
+            onChange={(e, { value }) =>
+              setCategory({ value }.value.toString().split("_")[1])
+            }
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Your post:</label>
+          <MDEditor value={content} onChange={setContent} />
+          <div style={{ marginTop: "10px" }}>
+            <Button type="submit">Add post</Button>
+          </div>
+        </Form.Field>
+      </div>
     </Form>
   )
 }

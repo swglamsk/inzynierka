@@ -21,7 +21,7 @@ const App = ({ location }) => {
       <Router basepath="/app">
         <Account path="/account" />
         <Dashboard path="/dashboard" />
-        <Panel path="/panel"/>
+        <Panel path="/panel" />
       </Router>
     </Layout>
   )

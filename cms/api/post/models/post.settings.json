@@ -35,6 +35,10 @@
     },
     "category": {
       "model": "category"
+    },
+    "forms": {
+      "via": "post",
+      "collection": "form"
     }
   }
 }

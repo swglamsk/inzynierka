@@ -85,6 +85,14 @@
         "JuniorDeveloper",
         "Intern"
       ]
+    },
+    "forms_submited": {
+      "via": "user_submiting",
+      "collection": "form"
+    },
+    "forms_resolved": {
+      "via": "user_resolving",
+      "collection": "form"
     }
   }
 }

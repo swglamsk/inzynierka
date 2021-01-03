@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "name": "Form"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "post": {
+      "model": "post",
+      "via": "forms"
+    },
+    "user_submiting": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "forms_submited"
+    },
+    "comment": {
+      "type": "text",
+      "required": true
+    },
+    "is_resolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "problem": {
+      "type": "text",
+      "unique": false,
+      "required": true
+    },
+    "user_resolving": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "forms_resolved"
+    }
+  }
+}
