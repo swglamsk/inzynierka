@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import useAuth from "../hooks/useAuth"
 import { navigate } from "gatsby"
+import {Grid, Header, Form, Segment, Button} from "semantic-ui-react"
 const Login = ({ redirect }) => {
   const { state, login } = useAuth()
   const [identifier, setIdentifier] = useState("")
@@ -8,7 +9,6 @@ const Login = ({ redirect }) => {
   const [error, setError] = useState("")
 
   const handleSubmit = async event => {
-    event.preventDefault()
     try {
       await login({ identifier, password })
       navigate(redirect)
@@ -31,76 +31,36 @@ const Login = ({ redirect }) => {
   }
 
   return (
-    <div
-      className="w-full max-w-xs"
-      style={{ display: "flex", justifyContent: "center" }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <div
-          className="mb-4"
-          style={{ marginTop: "10px", marginRight: "10px" }}
-        >
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
-            style={{ marginRight: "10px" }}
-          >
-            Username
-          </label>
-          <input
-            onChange={e => {
-              setIdentifier(e.target.value)
-            }}
-            value={identifier}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Username"
-          />
-        </div>
-        <div
-          className="mb-6"
-          style={{ marginTop: "10px", marginRight: "10px" }}
-        >
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="password"
-            style={{ marginRight: "10px" }}
-          >
-            Password
-          </label>
-          <input
-            onChange={e => {
-              setPassword(e.target.value)
-            }}
-            value={password}
-            className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="******************"
-          />
-        </div>
-        <div
-          className="flex items-center justify-between"
-          style={{ marginTop: "10px", marginRight: "10px" }}
-        >
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Sign In
-          </button>
-        </div>
-      </form>
-      {error.length > 1 && (
-        <p className="text-center text-red-500 bg-red-200 border p-2">
-          {error}
-        </p>
-      )}
-    </div>
+    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" color="teal" textAlign="center">
+          Log-in to your account
+        </Header>
+        <Form size="large">
+          <Segment stacked>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="E-mail address"
+              onChange={data => {setIdentifier(data.target.value)}}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+              onChange={data => {setPassword(data.target.value)}}
+            />
+
+            <Button color="teal" fluid size="large" onClick={() => handleSubmit()}>
+              Login
+            </Button>
+          </Segment>
+        </Form>
+      </Grid.Column>
+    </Grid>
   )
 }
 export default Login

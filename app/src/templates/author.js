@@ -3,9 +3,17 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import ReactMarkdown from "react-markdown"
 import "../styles/global.css"
+import { Container } from "semantic-ui-react"
+import Nav from "../components/app/Nav"
 const URL = process.env.GATSBY_API_URL
 const userTemplate = ({ data }) => (
-  <Layout>
+
+
+
+
+<Layout>
+<Container text>
+<Nav/>
     <h1>{data.strapiUser.username}</h1>
     <p>Phone Number: {data.strapiUser.phone_number}</p>
     <p>Department: {data.strapiUser.department}</p>
@@ -30,7 +38,12 @@ const userTemplate = ({ data }) => (
         </li>
       ))}
     </ul>
+
+    </Container>
   </Layout>
+
+
+  
 )
 export default userTemplate
 

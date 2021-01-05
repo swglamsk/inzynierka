@@ -8,7 +8,7 @@ import Nav from "../components/app/Nav"
 import useAuth from "../hooks/useAuth"
 import Panel from "../components/app/Panel"
 const App = ({ location }) => {
-  const { state, isAuthenticated } = useAuth()
+  const {isAuthenticated } = useAuth()
   const redirect = location.pathname.split("/").pop()
   useEffect(() => {
     if (!isAuthenticated) {

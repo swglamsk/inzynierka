@@ -37,8 +37,19 @@
       "model": "category"
     },
     "forms": {
-      "via": "post",
-      "collection": "form"
+      "collection": "form",
+      "via": "post"
+    },
+    "Files": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }

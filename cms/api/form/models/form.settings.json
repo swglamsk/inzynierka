@@ -11,13 +11,13 @@
   },
   "attributes": {
     "post": {
-      "model": "post",
-      "via": "forms"
+      "via": "forms",
+      "model": "post"
     },
     "user_submiting": {
+      "via": "forms_submited",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "forms_submited"
+      "model": "user"
     },
     "comment": {
       "type": "text",
@@ -33,9 +33,9 @@
       "required": true
     },
     "user_resolving": {
+      "via": "forms_resolved",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "forms_resolved"
+      "model": "user"
     }
   }
 }

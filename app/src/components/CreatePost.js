@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import MDEditor from "@uiw/react-md-editor"
 import axios from "axios"
-import { useStaticQuery } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { Form, Dropdown, Button } from "semantic-ui-react"
 
 import useAuth from "../hooks/useAuth"

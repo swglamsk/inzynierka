@@ -4,7 +4,7 @@ import Login from "../components/Login"
 import { Link } from "gatsby"
 
 const LoginPage = ({ location }) => {
-  const { state, routeState } = location
+  const {routeState } = location
   const redirect = !routeState
     ? `/app`
     : routeState.redirect === "app"
@@ -13,7 +13,6 @@ const LoginPage = ({ location }) => {
 
   return (
     <Layout>
-      <h1 style={{ display: "flex", justifyContent: "center" }}>Login</h1>
       <div>
         <Login redirect={redirect} />
       </div>
