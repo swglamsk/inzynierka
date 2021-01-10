@@ -87,12 +87,12 @@
       ]
     },
     "forms_submited": {
-      "collection": "form",
-      "via": "user_submiting"
+      "via": "user_submiting",
+      "collection": "form"
     },
     "forms_resolved": {
-      "collection": "form",
-      "via": "user_resolving"
+      "via": "user_resolving",
+      "collection": "form"
     },
     "Name": {
       "type": "string"

@@ -1,9 +1,9 @@
-import React from "react"
-import { Layout } from "../layout"
-import { Img, useStaticQuery, graphql, Link } from "gatsby"
+import React, { useState } from "react"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import "../../styles/global.css"
 import { Container, Item, Label } from "semantic-ui-react"
+import FilterMenu from "../FilterMenu"
 
 const apiURL = process.env.GATSBY_API_URL
 const Dashboard = () => {
@@ -15,62 +15,50 @@ const Dashboard = () => {
             id
             Title
             content
+            category {
+              Category_name
+            }
             author {
               username
               department
-              avatar {
-                childImageSharp {
-                  fluid(maxHeight: 200, maxWidth: 200) {
-                    base64
-                    tracedSVG
-                    srcWebp
-                    srcSetWebp
-                    originalImg
-                    originalName
-                  }
-                }
-              }
+              id
             }
-
           }
         }
       }
     }
   `)
-
+  const [posts, setPosts] = useState(data)
   return (
-    <Container text>
-      <Item.Group divided relaxed unstackable>
-        {data.allStrapiPost.edges.map(post => (
-          <Item key={post.node.id}>
-            <Item.Content>
-              <Item.Header as="a">
-                <Link to={`/app/${post.node.id}`}>{post.node.Title}</Link>
-              </Item.Header>
-              <Item.Meta>
-                <Label as="a" color="teal" image>
-                  <Img fluid={post.node.author.avatar.childImageSharp.fluid}/>
-                  {post.node.author.username}
-                  <Label.Detail>{post.node.author.department}</Label.Detail>
-                </Label>
-              </Item.Meta>
+    <Container style={{ position: "relative" }}>
+      <FilterMenu data={data} setPosts={setPosts} />
+      <Container text>
+        <Item.Group divided relaxed unstackable>
+          {posts.allStrapiPost.edges.map(post => (
+            <Item key={post.node.id}>
+              <Item.Content>
+                <Item.Header>
+                  <Link to={`/app/${post.node.id}`}>{post.node.Title}</Link>
+                </Item.Header>
+                <Item.Meta></Item.Meta>
 
-              <Item.Description>
-                <ReactMarkdown
-                  source={post.node.content.substring(0, 500).concat("...")}
-                  transformImageUri={uri =>
-                    uri.startsWith("http") ? uri : `${apiURL}${uri}`
-                  }
-                  className="indexArticle"
-                  escapeHtml={false}
-                />
-              </Item.Description>
+                <Item.Description>
+                  <ReactMarkdown
+                    source={post.node.content.substring(0, 500).concat("...")}
+                    transformImageUri={uri =>
+                      uri.startsWith("http") ? uri : `${apiURL}${uri}`
+                    }
+                    className="indexArticle"
+                    escapeHtml={false}
+                  />
+                </Item.Description>
 
-              <Link to={`/app/${post.node.id}`}>Read more</Link>
-            </Item.Content>
-          </Item>
-        ))}
-      </Item.Group>
+                <Link to={`/app/${post.node.id}`}>Read more</Link>
+              </Item.Content>
+            </Item>
+          ))}
+        </Item.Group>
+      </Container>
     </Container>
   )
 }

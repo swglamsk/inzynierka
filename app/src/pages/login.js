@@ -1,23 +1,23 @@
 import React from "react"
 import Layout from "../components/layout"
 import Login from "../components/Login"
-import { Link } from "gatsby"
+import { Container } from "semantic-ui-react"
 
 const LoginPage = ({ location }) => {
   const {routeState } = location
   const redirect = !routeState
-    ? `/app`
+    ? `/app/dashboard`
     : routeState.redirect === "app"
     ? `/app`
     : `/app/${routeState.redirect}`
 
   return (
     <Layout>
-      <div>
+      <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>
+        <Container textAlign="center">
         <Login redirect={redirect} />
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Link to="/">Home</Link>
+        </Container>
+
       </div>
     </Layout>
   )

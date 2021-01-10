@@ -1,6 +1,7 @@
 import React from "react"
 import { navigate } from "gatsby"
-
+import 'fontsource-roboto';
+import "../styles/global.css"
 import Layout from "../components/layout"
 import "semantic-ui-css/semantic.min.css"
 import {Container, Header, Button, Icon} from "semantic-ui-react"
@@ -26,7 +27,7 @@ const IndexPage = ({ data }) => (
         marginTop:'1.5em',
       }}
     />
-    <Button size='huge' color='teal' onClick={() => navigate("/app")} >
+    <Button size='huge' color='teal' onClick={() => navigate("/app/dashboard")} >
       Zaczynamy!
       <Icon name='right arrow' />
     </Button>

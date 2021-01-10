@@ -35,7 +35,10 @@ const Layout = ({ children }) => {
       >
         <main>{children}</main>
       </div>
+      <div style={{marginTop: 168}}>
       <Footer></Footer>
+      </div>
+
     </>
   )
 }

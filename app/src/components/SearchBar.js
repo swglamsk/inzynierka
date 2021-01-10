@@ -1,5 +1,5 @@
 import React, { useReducer, useCallback, useRef, useEffect } from "react"
-import { Search, Label } from "semantic-ui-react"
+import { Search, Label, Header } from "semantic-ui-react"
 import _ from "lodash"
 import { useStaticQuery, graphql, navigate } from "gatsby"
 
@@ -28,7 +28,15 @@ const SearchBar = () => {
   const { loading, results, value } = state
   const timeoutRef = useRef()
   const source = []
-  const resultRenderer = ({ Title }) => <Label content={Title} />
+  const resultRenderer = ({ Title, author, category }) => (
+    <div>
+      <Header as="h3">
+        {Title}
+        <Header.Subheader as="h5">{category}</Header.Subheader>
+      </Header>
+      <Label content={author} color="teal" />
+    </div>
+  )
   const query = useStaticQuery(graphql`
     {
       allStrapiPost {
@@ -53,30 +61,37 @@ const SearchBar = () => {
         Title: node.node.Title,
         author: node.node.author.username,
         category: node.node.category.Category_name,
-        id:node.node.id
+        id: node.node.id,
       })
     })
   }
   makeData()
-  const handleSearchChange = useCallback((e, data) => {
-    clearTimeout(timeoutRef.current)
-    dispatch({ type: "START_SEARCH", query: data.value })
+  const handleSearchChange = useCallback(
+    (e, data) => {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: "START_SEARCH", query: data.value })
 
-    timeoutRef.current = setTimeout(() => {
-      if (data.value.length === 0) {
-        dispatch({ type: "CLEAN_QUERY" })
-        return
-      }
+      timeoutRef.current = setTimeout(() => {
+        if (data.value.length === 0) {
+          dispatch({ type: "CLEAN_QUERY" })
+          return
+        }
 
-      const re = new RegExp(_.escapeRegExp(data.value), "i")
-      const isMatch = result => re.test(result.Title)
+        const re = new RegExp(_.escapeRegExp(data.value), "i")
+        const isMatch = result =>
+          re.test(result.Title) ||
+          re.test(result.category) ||
+          re.test(result.author)
 
-      dispatch({
-        type: "FINISH_SEARCH",
-        results: _.filter(source, isMatch),
-      })
-    }, 300)
-  }, [])
+        dispatch({
+          type: "FINISH_SEARCH",
+          results: _.filter(source, isMatch),
+        })
+      }, 300)
+      console.log(data)
+    },
+    [source]
+  )
 
   useEffect(() => {
     return () => {
@@ -93,12 +108,12 @@ const SearchBar = () => {
         onResultSelect={(e, data) => {
           navigate(`/app/${data.result.id}`)
           dispatch({ type: "UPDATE_SELECTION", selection: data.result.Title })
-
         }}
         results={results}
         value={value}
+        placeholder="Search by title, username or category"
       ></Search>
     </div>
   )
 }
-export default SearchBar 
+export default SearchBar

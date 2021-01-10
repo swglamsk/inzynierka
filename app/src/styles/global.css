@@ -21,3 +21,23 @@
     width: 100%;
     max-width: 600px;
   }
+
+  pre.w-md-editor-text-pre {
+    z-index: 999 !important;
+  }
+  
+  html{
+    font-family: "Roboto", serif ;
+  }
+  :root{
+    --ff-primary: "Roboto"
+  }
+  body{
+    font-family : "Roboto"
+  }
+  #gatsby-focus-wrapper{
+    height: 100%;
+  }
+  #___gatsby{
+    height:100%
+  }

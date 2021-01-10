@@ -1,6 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react"
 import axios from "axios"
-//import 'localstorage-polyfill'
 const apiURL = process.env.GATSBY_API_URL
 
 const AuthContext = createContext()

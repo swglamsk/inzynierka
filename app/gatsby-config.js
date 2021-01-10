@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "KnowMag",
+    title: "KnowMan",
     description: "Gatsby blog with Strapi",
     author: "Jakub Modzelewski",
   },
@@ -13,6 +13,19 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+{
+resolve: `gatsby-plugin-webfonts`,
+options: {
+  fonts: {
+    google:[
+      {
+        family: `Roboto`,
+        variants: [`400`, `700`],
+      }
+    ]
+  }
+}
+},
     {
       resolve: "gatsby-source-strapi",
       options: {

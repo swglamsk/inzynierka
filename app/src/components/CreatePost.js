@@ -1,8 +1,15 @@
 import React, { useState, useContext } from "react"
 import MDEditor from "@uiw/react-md-editor"
 import axios from "axios"
-import { useStaticQuery, graphql } from "gatsby"
-import { Form, Dropdown, Button } from "semantic-ui-react"
+import { useStaticQuery, graphql, navigate } from "gatsby"
+import {
+  Form,
+  Dropdown,
+  Button,
+  Container,
+  Input,
+  Message,
+} from "semantic-ui-react"
 
 import useAuth from "../hooks/useAuth"
 const apiURL = process.env.GATSBY_API_URL
@@ -10,6 +17,10 @@ export const CreatePost = () => {
   const [title, setTitle] = useState(null)
   const [content, setContent] = useState(null)
   const [category, setCategory] = useState(null)
+  const [active, setActive] = useState(true)
+  const [requiredTitleError, setRequiredTitleError] = useState(false)
+  const [requiredCategoryError, setRequiredCategoryError] = useState(false)
+  const [requiredContentError, setRequiredContentError] = useState(false)
   const user = useAuth().state.user.id
   const data = useStaticQuery(graphql`
     {
@@ -29,6 +40,25 @@ export const CreatePost = () => {
     value: element.node.id,
   }))
   const handleSubmit = async () => {
+    if (title === null || undefined) {
+      setRequiredTitleError(true)
+    }
+    if (category === null || undefined) {
+      setRequiredCategoryError(true)
+    }
+    if (content === null || undefined) {
+      setRequiredContentError(true)
+    }
+    if (
+      !requiredCategoryError ||
+      !requiredContentError ||
+      !requiredTitleError
+    ) {
+      return
+    }
+    setRequiredTitleError(false)
+    setRequiredCategoryError(false)
+    setRequiredContentError(false)
     await axios
       .post(`${apiURL}/posts`, {
         Title: title,
@@ -44,39 +74,95 @@ export const CreatePost = () => {
       .catch(error => {
         console.log(error)
       })
-  }
 
+    setActive(false)
+    setTimeout(() => {
+      navigate("/app/dashboard")
+    }, 2000)
+  }
   return (
-    <Form onSubmit={() => handleSubmit()}>
-      <div style={{ marginTop: "10px" }}>
-        <Form.Field required>
-          <label>Title:</label>
-          <input
-            placeholder="Title"
-            onChange={data => setTitle(data.target.value)}
-          />
-        </Form.Field>
-        <Form.Field required>
-          <label>Category:</label>
-          <Dropdown
-            placeholder="select category"
-            fluid
-            selection
-            options={categories}
-            onChange={(e, { value }) =>
-              setCategory({ value }.value.toString().split("_")[1])
-            }
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Your post:</label>
-          <MDEditor value={content} onChange={setContent} />
+    <Container
+      style={{
+        padding: 16,
+        border: "1px solid  rgba(34,36,38,.15)",
+        borderRadius: 8,
+      }}
+    >
+      <Form onSubmit={() => handleSubmit()}>
+        <div style={{ marginTop: "10px" }}>
+          {requiredTitleError ? (
+            <Form.Field required>
+              <label>Title:</label>
+              <Form.Input
+                error="Please enter title first"
+                placeholder="Title"
+                onChange={data => setTitle(data.target.value)}
+                size="large"
+              />
+            </Form.Field>
+          ) : (
+            <Form.Field required>
+              <label>Title:</label>
+              <Form.Input
+                placeholder="Title"
+                onChange={data => setTitle(data.target.value)}
+                size="large"
+              />
+            </Form.Field>
+          )}
+          {requiredCategoryError ? (
+            <Form.Field required error="Please select a category first">
+              <label>Category:</label>
+              <Dropdown
+                placeholder="Select category"
+                fluid
+                selection
+                options={categories}
+                onChange={(e, { value }) =>
+                  setCategory({ value }.value.toString().split("_")[1])
+                }
+              />
+            </Form.Field>
+          ) : (
+            <Form.Field required>
+              <label>Category:</label>
+              <Dropdown
+                placeholder="Select category"
+                fluid
+                selection
+                options={categories}
+                onChange={(e, { value }) =>
+                  setCategory({ value }.value.toString().split("_")[1])
+                }
+              />
+            </Form.Field>
+          )}
+          <Form.Field required>
+            <label>Your post:</label>
+            <MDEditor value={content} onChange={setContent} />
+            {requiredContentError ? (
+              <Message negative content="Please add post content first" />
+            ) : (
+              <></>
+            )}
+            {active ? (
+              <></>
+            ) : (
+              <Message
+                positive
+                header="Post added"
+                content="You will now be redirected to Dashboard"
+              />
+            )}
+          </Form.Field>
           <div style={{ marginTop: "10px" }}>
-            <Button type="submit">Add post</Button>
+            <Button positive type="Submit">
+              Add post
+            </Button>
           </div>
-        </Form.Field>
-      </div>
-    </Form>
+        </div>
+      </Form>
+    </Container>
   )
 }
 export default CreatePost

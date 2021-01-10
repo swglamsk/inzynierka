@@ -5,18 +5,36 @@ import useAuth from "../../hooks/useAuth"
 import SearchBar from "../SearchBar"
 const Nav = () => {
   const { state, logout, isAuthenticated } = useAuth()
+
   const handleLogout = e => {
     e.preventDefault()
     logout()
   }
+
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginBottom:"20px"}}>
-      <Menu compact secondary>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginBottom: "20px",
+      }}
+    >
+      <Menu
+        compact
+        color="teal"
+        size="huge"
+        style={{ border: "1px solid  rgba(34,36,38,.15)", borderRadius: 8 }}
+      >
         <Menu.Item link>
           <Link to="/app/dashboard">Dashboard</Link>
         </Menu.Item>
-        <Menu.Item link onClick={() => {navigate(`/app/authors/User_${state.user.id}`)}}>
-    <Link>Account</Link>
+        <Menu.Item
+          link
+          onClick={() => {
+            navigate(`/app/authors/User_${state.user.id}`)
+          }}
+        >
+          <Link>Account</Link>
         </Menu.Item>
 
         <Menu.Item link>

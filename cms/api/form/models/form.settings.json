@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "forms",
   "info": {
-    "name": "Form"
+    "name": "Form",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -15,9 +16,9 @@
       "model": "post"
     },
     "user_submiting": {
-      "via": "forms_submited",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "forms_submited"
     },
     "comment": {
       "type": "text",
@@ -30,12 +31,12 @@
     "problem": {
       "type": "text",
       "unique": false,
-      "required": true
+      "required": false
     },
     "user_resolving": {
-      "via": "forms_resolved",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "forms_resolved"
     }
   }
 }
