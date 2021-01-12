@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { navigate } from "gatsby"
 import { Router } from "@reach/router"
 import Layout from "../components/layout"
-import Account from "../components/app/Account"
+import AccountForms from "../components/app/AccountForms"
 import Dashboard from "../components/app/Dashboard"
 import Nav from "../components/app/Nav"
 import useAuth from "../hooks/useAuth"
@@ -19,7 +19,7 @@ const App = ({ location }) => {
     <Layout>
       <Nav />
       <Router basepath="/app">
-        <Account path="/account" />
+        <AccountForms path="/forms" />
         <Dashboard path="/dashboard" />
         <Panel path="/panel" />
       </Router>

@@ -4,14 +4,23 @@ const apiURL = process.env.GATSBY_API_URL
 
 const AuthContext = createContext()
 
+// const AuthProvider = ({ children }) => {
+//   const user =  localStorage.getItem('user') !== undefined && localStorage.getItem('user')
+
+
+// const DEFAULT_STATE = {
+//   jwt:  user ? JSON.parse(user).jwt : null,
+//   user: user ? JSON.parse(user).user : {},
+//   loggedIn: user  ? true : false
+// }
 const AuthProvider = ({ children }) => {
-  const user =  localStorage.getItem('user') !== undefined && localStorage.getItem('user')
+  // const user =  localStorage.getItem('user') !== undefined && localStorage.getItem('user')
 
 
 const DEFAULT_STATE = {
-  jwt:  user ? JSON.parse(user).jwt : null,
-  user: user ? JSON.parse(user).user : {},
-  loggedIn: user  ? true : false
+  jwt:   null,
+  user:  {},
+  loggedIn: false
 }
 
 const reducer = (state, action) => {
@@ -51,7 +60,7 @@ const useAuth = () => {
         )
         dispatcher({ type: "LOGIN", payload })
         resolve(payload)
-        localStorage.setItem("user", JSON.stringify(payload))
+       // localStorage.setItem("user", JSON.stringify(payload))
       } catch (e) {
         console.log(e)
         reject(e)
@@ -59,7 +68,7 @@ const useAuth = () => {
     })
   const logout = () => {
     dispatcher({ type: "LOGOUT" })
-    localStorage.removeItem("user")
+   // localStorage.removeItem("user")
   }
 
   return { state, isAuthenticated, login, logout }

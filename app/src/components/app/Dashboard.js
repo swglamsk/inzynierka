@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import "../../styles/global.css"
-import { Container, Item, Label } from "semantic-ui-react"
+import { Container, Item} from "semantic-ui-react"
 import FilterMenu from "../FilterMenu"
 
 const apiURL = process.env.GATSBY_API_URL

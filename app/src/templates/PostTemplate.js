@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, graphql, navigate } from "gatsby"
 import Layout from "../components/layout"
 import ReactMarkdown from "react-markdown"
@@ -33,7 +33,15 @@ const PostTemplate = ({ data }) => {
   const [Title, setTitle] = useState(data.strapiPost.Title)
   const [category, setCategory] = useState(data.strapiPost.category.id)
   const [content, setContent] = useState(data.strapiPost.content)
-
+  const [isUserPost, setIsUserPost] = useState('')
+  useEffect(() => {
+    if(userID===data.strapiPost.author.id){
+      setIsUserPost(true)
+    }
+    else{
+      setIsUserPost(false)
+    }
+  })
   const messageIssue = () => (
     <Message
       positive
@@ -60,7 +68,6 @@ const PostTemplate = ({ data }) => {
     text: element.node.Category_name,
     value: element.node.id,
   }))
-  console.log(categories)
   const handleSubmit = async () => {
     await axios
       .post(`${URL}/forms`, {
@@ -74,6 +81,7 @@ const PostTemplate = ({ data }) => {
       .catch(error => {
         console.log(error)
       })
+      await axios.post(`http://localhost:8000/__refresh`)
   }
 
   const handleDelete = async () => {
@@ -85,6 +93,7 @@ const PostTemplate = ({ data }) => {
       .catch(error => {
         console.log(error)
       })
+      await axios.post(`http://localhost:8000/__refresh`)
   }
 
   const handleEdit = async () => {
@@ -103,6 +112,7 @@ const PostTemplate = ({ data }) => {
         console.log(error)
       })
     setHiddentEdit(false)
+    await axios.post(`http://localhost:8000/__refresh`)
     setTimeout(() => navigate("/app/dashboard"), 2000)
   }
   return (
@@ -134,7 +144,8 @@ const PostTemplate = ({ data }) => {
         />
       </Container>
       <Container textAlign="center" style={{ marginTop: 10 }}>
-        <Modal
+        {isUserPost ? 
+        <div><Modal
           onClose={() => setOpenEdit(false)}
           onOpen={() => setOpenEdit(true)}
           open={openEdit}
@@ -158,9 +169,10 @@ const PostTemplate = ({ data }) => {
               <Dropdown
                 placeholder="Select category"
                 fluid
-                defaultValue={category}
+
                 selection
                 options={categories}
+                defaultValue={`User_${category}`}
                 onChange={(e, { value }) =>
                   setCategory({ value }.value.toString().split("_")[1])
                 }
@@ -176,7 +188,8 @@ const PostTemplate = ({ data }) => {
 
             </Modal.Actions>
           </Modal.Content>
-        </Modal>
+        </Modal> 
+        
         <Modal
           size="mini"
           onClose={() => setOpenDelete(false)}
@@ -204,8 +217,8 @@ const PostTemplate = ({ data }) => {
               </Button>
             </Modal.Actions>
           </Modal.Content>
-        </Modal>
-
+        </Modal> </div>
+: <></>}
         <Modal
           onClose={() => setOpenIssue(false)}
           onOpen={() => setOpenIssue(true)}

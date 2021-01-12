@@ -40,6 +40,9 @@ export const CreatePost = () => {
     value: element.node.id,
   }))
   const handleSubmit = async () => {
+    console.log(requiredCategoryError)
+    console.log(requiredContentError)
+    console.log(requiredTitleError)
     if (title === null || undefined) {
       setRequiredTitleError(true)
     }
@@ -50,9 +53,9 @@ export const CreatePost = () => {
       setRequiredContentError(true)
     }
     if (
-      !requiredCategoryError ||
-      !requiredContentError ||
-      !requiredTitleError
+      requiredCategoryError ||
+      requiredContentError ||
+      requiredTitleError
     ) {
       return
     }
@@ -76,6 +79,7 @@ export const CreatePost = () => {
       })
 
     setActive(false)
+    await axios.post(`http://localhost:8000/__refresh`)
     setTimeout(() => {
       navigate("/app/dashboard")
     }, 2000)
@@ -88,7 +92,7 @@ export const CreatePost = () => {
         borderRadius: 8,
       }}
     >
-      <Form onSubmit={() => handleSubmit()}>
+      <Form>
         <div style={{ marginTop: "10px" }}>
           {requiredTitleError ? (
             <Form.Field required>
@@ -156,7 +160,7 @@ export const CreatePost = () => {
             )}
           </Form.Field>
           <div style={{ marginTop: "10px" }}>
-            <Button positive type="Submit">
+            <Button positive onClick={() => handleSubmit()}>
               Add post
             </Button>
           </div>

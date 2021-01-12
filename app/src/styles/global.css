@@ -26,14 +26,9 @@
     z-index: 999 !important;
   }
   
-  html{
-    font-family: "Roboto", serif ;
-  }
-  :root{
-    --ff-primary: "Roboto"
-  }
   body{
-    font-family : "Roboto"
+    font-family : "Roboto";
+    background-color: rgb(211,211,211)
   }
   #gatsby-focus-wrapper{
     height: 100%;
@@ -41,3 +36,13 @@
   #___gatsby{
     height:100%
   }
+  .ui{
+    font-family:"Roboto" !important
+  }
+  .ui.menu{
+    font-family: "Roboto"
+  }
+  .ui.form textarea:not([rows]){
+    max-height: unset !important;
+  } 
+ 
