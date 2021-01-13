@@ -11,7 +11,10 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "grep": "^0.1.0",
     "knex": "<0.20.0",
+    "pg": "^8.5.1",
+    "pg-connection-string": "^2.4.0",
     "sqlite3": "latest",
     "strapi": "^3.4.1",
     "strapi-admin": "3.4.1",
@@ -21,6 +24,7 @@
     "strapi-plugin-email": "3.4.1",
     "strapi-plugin-upload": "3.4.1",
     "strapi-plugin-users-permissions": "3.4.1",
+    "strapi-provider-upload-cloudinary": "^3.4.2",
     "strapi-utils": "3.4.1"
   },
   "author": {

@@ -29,7 +29,7 @@ options: {
     {
       resolve: "gatsby-source-strapi",
       options: {
-        apiURL: "http://localhost:3001",
+        apiURL: "https://aqueous-bastion-65270.herokuapp.com/",
         contentTypes: [
           // List of the Content Types you want to be able to request from Gatsby.
           "post",
